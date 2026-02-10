@@ -2284,10 +2284,19 @@ document.addEventListener('keydown', function(e) {
     const badge = document.querySelector('.hero-badge');
     if (badge) setI18nWithChildren(badge, data.badge.pt, data.badge.en);
 
-    const chips = document.querySelectorAll('.hero-chip');
-    data.chips.forEach((chip, i) => {
-      if (chips[i]) setI18n(chips[i], chip.pt, chip.en);
-    });
+    // Dynamically rebuild chips from CMS data
+    const heroInfo = document.querySelector('.hero-info');
+    if (heroInfo && data.chips && data.chips.length > 0) {
+      heroInfo.innerHTML = '';
+      data.chips.forEach(chip => {
+        const span = document.createElement('span');
+        span.className = 'hero-chip';
+        span.setAttribute('data-pt', chip.pt);
+        span.setAttribute('data-en', chip.en);
+        span.textContent = lang === 'en' ? chip.en : chip.pt;
+        heroInfo.appendChild(span);
+      });
+    }
 
     const heroTitle = document.querySelector('header h1');
     if (heroTitle) setI18n(heroTitle, data.title.pt, data.title.en);
