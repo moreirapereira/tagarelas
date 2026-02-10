@@ -14,14 +14,14 @@
 <link rel="alternate" hreflang="en" href="https://tagarelasasolta.pt/?lang=en">
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="img/gallery/logo.png">
-<link rel="apple-touch-icon" href="img/gallery/logo.png">
+<link rel="icon" type="image/png" href="img/logo.png">
+<link rel="apple-touch-icon" href="img/logo.png">
 
 <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tagarelas à Solta — Jardim de Infância em Póvoa de Santa Iria">
 <meta property="og:description" content="Educação pré-escolar dos 3 aos 6 anos com amor, segurança e alegria. Cada criança no centro de tudo o que fazemos.">
-<meta property="og:image" content="https://tagarelasasolta.pt/img/gallery/logo.png">
+<meta property="og:image" content="https://tagarelasasolta.pt/img/logo.png">
 <meta property="og:url" content="https://tagarelasasolta.pt/">
 <meta property="og:site_name" content="Tagarelas à Solta">
 <meta property="og:locale" content="pt_PT">
@@ -31,7 +31,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tagarelas à Solta — Jardim de Infância">
 <meta name="twitter:description" content="Educação pré-escolar dos 3 aos 6 anos em Póvoa de Santa Iria. Amor, segurança e alegria.">
-<meta name="twitter:image" content="https://tagarelasasolta.pt/img/gallery/logo.png">
+<meta name="twitter:image" content="https://tagarelasasolta.pt/img/logo.png">
 
 <!-- Structured Data (JSON-LD) -->
 <script type="application/ld+json">
@@ -41,8 +41,8 @@
   "name": "Tagarelas à Solta",
   "description": "Jardim de Infância de referência em Póvoa de Santa Iria. Educação pré-escolar dos 3 aos 6 anos.",
   "url": "https://tagarelasasolta.pt/",
-  "logo": "https://tagarelasasolta.pt/img/gallery/logo.png",
-  "image": "https://tagarelasasolta.pt/img/gallery/background.jpg",
+  "logo": "https://tagarelasasolta.pt/img/logo.png",
+  "image": "https://tagarelasasolta.pt/img/background.jpg",
   "telephone": "+351910588380",
   "email": "tagarelasasolta@sapo.pt",
   "address": {
@@ -118,7 +118,7 @@ html {
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
-              url('img/gallery/background.jpg') center/cover no-repeat fixed;
+              url('img/background.jpg') center/cover no-repeat fixed;
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.7;
@@ -363,7 +363,7 @@ nav.scrolled img.logo {
 header {
   min-height: 100vh;
   background: linear-gradient(160deg, rgba(26,60,57,.8) 0%, rgba(15,37,35,.75) 50%, rgba(26,60,57,.85) 100%),
-              url('img/gallery/background.jpg') center/cover;
+              url('img/background.jpg') center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1630,7 +1630,7 @@ footer .footer-social a:hover {
 <!-- NAVIGATION -->
 <nav>
   <a href="#" class="nav-brand">
-    <img src="img/gallery/logo.png" alt="Tagarelas à Solta - Jardim de Infância" class="logo">
+    <img src="img/logo.png" alt="Tagarelas à Solta - Jardim de Infância" class="logo">
     <span class="header-text">Tagarelas à Solta</span>
   </a>
 
@@ -1920,7 +1920,7 @@ footer .footer-social a:hover {
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">
-    <img src="img/gallery/logo.png" alt="Logotipo Tagarelas à Solta">
+    <img src="img/logo.png" alt="Logotipo Tagarelas à Solta">
     <span>Tagarelas à Solta</span>
   </div>
   <div class="footer-social">
@@ -2146,19 +2146,38 @@ async function loadGallery() {
   const galleryContainer = document.getElementById('galleryContainer');
   if (!galleryContainer) return;
 
-  // Fetch gallery data from CMS JSON files (content/gallery/foto-N.json)
-  const fetches = [];
-  for (let i = 1; i <= 50; i++) {
-    fetches.push(
-      fetch(`content/gallery/foto-${i}.json`)
-        .then(r => r.ok ? r.json() : null)
-        .catch(() => null)
-    );
+  // Step 1: Discover all gallery JSON files via GitHub Contents API
+  // This fetches the directory listing so any new CMS entry is picked up automatically
+  let jsonFiles = [];
+  try {
+    const apiUrl = 'https://api.github.com/repos/moreirapereira/tagarelas/contents/content/gallery?ref=github-pages';
+    const dirResponse = await fetch(apiUrl);
+    if (dirResponse.ok) {
+      const dirListing = await dirResponse.json();
+      jsonFiles = dirListing
+        .filter(f => f.name.endsWith('.json'))
+        .map(f => f.name);
+    }
+  } catch (e) {
+    // API failed (rate limit, etc.) — fall back to numbered filenames
   }
 
+  // Fallback: if API didn't work, try known numbered pattern
+  if (jsonFiles.length === 0) {
+    for (let i = 1; i <= 50; i++) {
+      jsonFiles.push(`foto-${i}.json`);
+    }
+  }
+
+  // Step 2: Fetch all gallery JSON files in parallel
+  const fetches = jsonFiles.map(name =>
+    fetch(`content/gallery/${name}`)
+      .then(r => r.ok ? r.json() : null)
+      .catch(() => null)
+  );
   let galleryData = (await Promise.all(fetches)).filter(Boolean);
 
-  // Sort by order field, then filter only visible items
+  // Step 3: Sort by order field, filter visible items
   galleryData.sort((a, b) => (a.order || 0) - (b.order || 0));
   const visibleItems = galleryData.filter(item => item.visible !== false);
 
@@ -2170,6 +2189,7 @@ async function loadGallery() {
     return;
   }
 
+  // Step 4: Build gallery DOM in sorted order
   visibleItems.forEach((item, idx) => {
     const imagePath = normalizePath(item.image);
     galleryImages.push(imagePath);

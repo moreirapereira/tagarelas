@@ -6,7 +6,7 @@ backend:
   repo: moreirapereira/tagarelas
   branch: github-pages
 
-# Media files — points to img/gallery so all gallery photos appear in Media
+# Media files — gallery photos are uploaded to img/gallery/
 media_folder: "img/gallery"
 public_folder: "/tagarelas/img/gallery"
 
@@ -18,7 +18,7 @@ site_url: https://moreirapereira.github.io/tagarelas
 display_url: https://moreirapereira.github.io/tagarelas
 
 # Logo displayed in the CMS sidebar
-logo_url: "/tagarelas/img/gallery/logo.png"
+logo_url: "/tagarelas/img/logo.png"
 
 # Show a link to the live site when editing
 show_preview_links: true
