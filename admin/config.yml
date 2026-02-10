@@ -10,16 +10,16 @@ backend:
 
 # Media files — points to img/gallery so all gallery photos appear in Media
 media_folder: "img/gallery"
-public_folder: "/img/gallery"
+public_folder: "/tagarelas/img/gallery"
 
 # Locale for the CMS UI
 locale: "pt"
 
-# Site URL (update after deploying to Netlify)
-# site_url: https://your-site.netlify.app
+# Site URL
+site_url: https://moreirapereira.github.io/tagarelas
 
 # Logo displayed in the CMS sidebar
-logo_url: "/img/gallery/logo.png"
+logo_url: "/tagarelas/img/gallery/logo.png"
 
 collections:
   # ============================================
