@@ -5,8 +5,6 @@ backend:
   name: github
   repo: moreirapereira/tagarelas
   branch: github-pages
-  auth_type: pkce
-  app_id: Ov23liMDPJ3FocgyEwTT
 
 # Media files — points to img/gallery so all gallery photos appear in Media
 media_folder: "img/gallery"
