@@ -2,8 +2,9 @@
 local_backend: false
 
 backend:
-  name: git-gateway
-  branch: main
+  name: github
+  repo: moreirapereira/tagarelas
+  branch: github-pages
 
 # Media files — points to img/gallery so all gallery photos appear in Media
 media_folder: "img/gallery"
