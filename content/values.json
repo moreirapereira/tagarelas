@@ -1,0 +1,45 @@
+{
+  "label": {
+    "pt": "O Que Nos Define",
+    "en": "What Defines Us"
+  },
+  "title": {
+    "pt": "Os Nossos Valores",
+    "en": "Our Values"
+  },
+  "items": [
+    {
+      "icon": "fas fa-book-open-reader",
+      "title": {
+        "pt": "Aprendizagem com Alegria",
+        "en": "Learning with Joy"
+      },
+      "description": {
+        "pt": "Aqui cada criança aprende a brincar, desenvolvendo a sua criatividade, confiança e autonomia. Cada dia é uma nova aventura repleta de descobertas que a preparam para o futuro.",
+        "en": "Here every child learns through play, developing their creativity, confidence and independence. Every day is a new adventure full of discoveries that prepare them for the future."
+      }
+    },
+    {
+      "icon": "fas fa-shield-heart",
+      "title": {
+        "pt": "Paz de Espírito dos Pais",
+        "en": "Parents' Peace of Mind"
+      },
+      "description": {
+        "pt": "Podem ir trabalhar descansados. Temos um espaço seguro, protegido e supervisionado, com profissionais que conhecem bem cada criança e cuidam dela como se fosse da família.",
+        "en": "Parents can go to work at ease. We have a safe, secure and supervised space, with professionals who know every child well and care for them as if they were family."
+      }
+    },
+    {
+      "icon": "fas fa-hands-holding-child",
+      "title": {
+        "pt": "Cada Criança, Única e Especial",
+        "en": "Every Child, Unique and Special"
+      },
+      "description": {
+        "pt": "Não somos uma multidão. Conhecemos cada criança, as suas preferências, os seus medos e os seus sonhos. Acompanhamo-la de perto, celebrando cada conquista e apoiando-a em cada etapa.",
+        "en": "We're not a crowd. We know every child, their preferences, their fears and their dreams. We follow them closely, celebrating every achievement and supporting them at every stage."
+      }
+    }
+  ]
+}

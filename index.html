@@ -9,6 +9,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Netlify Identity Widget (required for Decap CMS authentication) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 <style>
 :root {
@@ -2167,6 +2169,264 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') navigateLightbox(-1);
   if (e.key === 'ArrowRight') navigateLightbox(1);
 });
+
+// ===== CMS CONTENT LOADER =====
+// Loads content from JSON data files managed by Decap CMS
+// Falls back gracefully to the hardcoded HTML content if fetch fails
+(function() {
+  const lang = localStorage.getItem('lang') || 'pt';
+
+  function t(obj) {
+    return obj[lang] || obj.pt || '';
+  }
+
+  function setI18n(el, ptText, enText) {
+    if (!el) return;
+    el.setAttribute('data-pt', ptText);
+    el.setAttribute('data-en', enText);
+    el.textContent = lang === 'en' ? enText : ptText;
+  }
+
+  function setI18nWithChildren(el, ptText, enText) {
+    if (!el) return;
+    el.setAttribute('data-pt', ptText);
+    el.setAttribute('data-en', enText);
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+    const textNode = walker.nextNode();
+    if (textNode) {
+      textNode.nodeValue = (lang === 'en' ? enText : ptText) + ' ';
+    }
+  }
+
+  // Load Hero content
+  fetch('content/hero.json').then(r => r.json()).then(data => {
+    const badge = document.querySelector('.hero-badge');
+    if (badge) setI18nWithChildren(badge, data.badge.pt, data.badge.en);
+
+    const chips = document.querySelectorAll('.hero-chip');
+    data.chips.forEach((chip, i) => {
+      if (chips[i]) setI18n(chips[i], chip.pt, chip.en);
+    });
+
+    const heroTitle = document.querySelector('header h2');
+    if (heroTitle) setI18n(heroTitle, data.title.pt, data.title.en);
+
+    const heroDesc = document.querySelector('header p');
+    if (heroDesc) setI18n(heroDesc, data.description.pt, data.description.en);
+
+    const heroCta = document.querySelector('.hero-cta');
+    if (heroCta) {
+      setI18nWithChildren(heroCta, data.cta.pt, data.cta.en);
+      heroCta.href = data.cta.href;
+    }
+  }).catch(() => {});
+
+  // Load About content
+  fetch('content/about.json').then(r => r.json()).then(data => {
+    const section = document.getElementById('sobre');
+    if (!section) return;
+
+    const label = section.querySelector('.section-label');
+    if (label) setI18n(label, data.label.pt, data.label.en);
+
+    const title = section.querySelector('.section-title');
+    if (title) setI18n(title, data.title.pt, data.title.en);
+
+    const text = section.querySelector('.about-text p');
+    if (text) setI18n(text, data.text.pt, data.text.en);
+
+    const features = section.querySelectorAll('.about-feature');
+    data.features.forEach((feat, i) => {
+      if (features[i]) {
+        const icon = features[i].querySelector('i');
+        if (icon) icon.className = feat.icon;
+        const span = features[i].querySelector('span');
+        if (span) setI18n(span, feat.pt, feat.en);
+      }
+    });
+
+    const images = section.querySelectorAll('.img-wrapper img');
+    data.images.forEach((src, i) => {
+      if (images[i]) images[i].src = src.replace(/^\//, '');
+    });
+  }).catch(() => {});
+
+  // Load Values content
+  fetch('content/values.json').then(r => r.json()).then(data => {
+    const section = document.getElementById('valores');
+    if (!section) return;
+
+    const label = section.querySelector('.section-label');
+    if (label) setI18n(label, data.label.pt, data.label.en);
+
+    const title = section.querySelector('.section-title');
+    if (title) setI18n(title, data.title.pt, data.title.en);
+
+    const cards = section.querySelectorAll('.value-card');
+    data.items.forEach((item, i) => {
+      if (cards[i]) {
+        const icon = cards[i].querySelector('.value-icon i');
+        if (icon) icon.className = item.icon;
+        const h3 = cards[i].querySelector('h3');
+        if (h3) setI18n(h3, item.title.pt, item.title.en);
+        const p = cards[i].querySelector('p');
+        if (p) setI18n(p, item.description.pt, item.description.en);
+      }
+    });
+  }).catch(() => {});
+
+  // Load Contact/Settings content
+  fetch('content/settings.json').then(r => r.json()).then(data => {
+    const section = document.getElementById('contactos');
+    if (!section) return;
+
+    const contactValues = section.querySelectorAll('.contact-value');
+    contactValues.forEach(el => {
+      const label = el.previousElementSibling || el.parentElement.querySelector('.contact-label');
+      if (!label) return;
+      const labelText = label.textContent.trim().toLowerCase();
+
+      if (labelText === 'morada' || labelText === 'address') {
+        el.textContent = data.address;
+      } else if (labelText === 'telefone' || labelText === 'phone') {
+        el.innerHTML = '<a href="tel:' + data.phone.replace(/\s/g, '') + '">' + data.phone + '</a>';
+      } else if (labelText === 'email') {
+        el.innerHTML = '<a href="mailto:' + data.email + '">' + data.email + '</a>';
+      } else if (labelText === 'horário' || labelText === 'hours') {
+        setI18n(el, data.hours.pt, data.hours.en);
+      }
+    });
+
+    // Update social links
+    const socialLinks = section.querySelectorAll('.social-links a');
+    socialLinks.forEach(link => {
+      if (link.querySelector('.fa-facebook-f')) link.href = data.social.facebook;
+      if (link.querySelector('.fa-instagram')) link.href = data.social.instagram;
+    });
+
+    // Update map
+    const iframe = section.querySelector('iframe');
+    if (iframe && data.mapEmbed) iframe.src = data.mapEmbed;
+  }).catch(() => {});
+
+  // Load CTA content
+  fetch('content/cta.json').then(r => r.json()).then(data => {
+    const section = document.querySelector('section.cta');
+    if (!section) return;
+
+    const h2 = section.querySelector('h2');
+    if (h2) setI18n(h2, data.title.pt, data.title.en);
+
+    const p = section.querySelector('p');
+    if (p) setI18n(p, data.description.pt, data.description.en);
+
+    const btn = section.querySelector('a');
+    if (btn) {
+      setI18nWithChildren(btn, data.button.pt, data.button.en);
+      btn.href = data.button.href;
+    }
+  }).catch(() => {});
+
+  // Load Testimonials from individual JSON files
+  fetch('content/testimonials/').then(r => r.text()).then(html => {
+    // Parse directory listing to find JSON files (works on most static hosts)
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const links = Array.from(doc.querySelectorAll('a'))
+      .map(a => a.getAttribute('href'))
+      .filter(href => href && href.endsWith('.json'));
+    return Promise.all(links.map(f => {
+      const url = f.startsWith('content/') ? f : 'content/testimonials/' + f;
+      return fetch(url).then(r => r.json());
+    }));
+  }).then(testimonials => {
+    if (!testimonials || testimonials.length === 0) return;
+    testimonials.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+    const grid = document.querySelector('.testimonials-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    testimonials.forEach(t => {
+      const stars = Array(t.stars).fill('<i class="fas fa-star"></i>').join('');
+      const card = document.createElement('div');
+      card.className = 'testimonial-card';
+      card.innerHTML = `
+        <div class="testimonial-stars">${stars}</div>
+        <p class="testimonial-text" data-pt="${t.text.pt.replace(/"/g, '&quot;')}" data-en="${t.text.en.replace(/"/g, '&quot;')}">${lang === 'en' ? t.text.en : t.text.pt}</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">${t.avatar}</div>
+          <div>
+            <div class="testimonial-name">${t.name}</div>
+            <div class="testimonial-source"><i class="${t.source.icon}"></i> ${t.source.platform}</div>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // Re-register i18n for new testimonial elements
+    grid.querySelectorAll('[data-pt][data-en]').forEach(el => {
+      const key = el.dataset.pt;
+      if (key) {
+        TRANSLATIONS.pt[key] = el.dataset.pt;
+        TRANSLATIONS.en[key] = el.dataset.en;
+      }
+    });
+  }).catch(() => {
+    // Fallback: try loading known testimonial files directly
+    const knownFiles = ['susana-rocha.json', 'natalia-navarro.json', 'thallita-brito.json'];
+    Promise.all(knownFiles.map(f => fetch('content/testimonials/' + f).then(r => r.json()).catch(() => null)))
+      .then(testimonials => {
+        testimonials = testimonials.filter(Boolean);
+        if (testimonials.length === 0) return;
+        testimonials.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+        const grid = document.querySelector('.testimonials-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        testimonials.forEach(t => {
+          const stars = Array(t.stars).fill('<i class="fas fa-star"></i>').join('');
+          const card = document.createElement('div');
+          card.className = 'testimonial-card';
+          card.innerHTML = `
+            <div class="testimonial-stars">${stars}</div>
+            <p class="testimonial-text" data-pt="${t.text.pt.replace(/"/g, '&quot;')}" data-en="${t.text.en.replace(/"/g, '&quot;')}">${lang === 'en' ? t.text.en : t.text.pt}</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">${t.avatar}</div>
+              <div>
+                <div class="testimonial-name">${t.name}</div>
+                <div class="testimonial-source"><i class="${t.source.icon}"></i> ${t.source.platform}</div>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+        grid.querySelectorAll('[data-pt][data-en]').forEach(el => {
+          const key = el.dataset.pt;
+          if (key) {
+            TRANSLATIONS.pt[key] = el.dataset.pt;
+            TRANSLATIONS.en[key] = el.dataset.en;
+          }
+        });
+      });
+  });
+})();
+</script>
+
+<!-- Netlify Identity redirect after login -->
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on('init', user => {
+      if (!user) {
+        window.netlifyIdentity.on('login', () => {
+          document.location.href = '/admin/';
+        });
+      }
+    });
+  }
 </script>
 
 </body>

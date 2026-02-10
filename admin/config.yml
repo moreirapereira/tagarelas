@@ -1,0 +1,262 @@
+# When running locally, set local_backend to true and run:
+#   npx decap-server
+# For production (Netlify), set local_backend to false
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Media files will be stored in the repo under img/
+media_folder: "img"
+public_folder: "/img"
+
+# Locale for the CMS UI
+locale: "pt"
+
+# Site URL (update after deploying to Netlify)
+# site_url: https://your-site.netlify.app
+
+# Logo displayed in the CMS sidebar
+logo_url: "/img/logo.png"
+
+collections:
+  # ============================================
+  # SITE SETTINGS (single file collection)
+  # ============================================
+  - name: "settings"
+    label: "Definições do Site"
+    label_singular: "Definição"
+    description: "Informações gerais do site como contactos e redes sociais."
+    files:
+      - name: "contact"
+        label: "Informações de Contacto"
+        file: "content/settings.json"
+        format: "json"
+        fields:
+          - { label: "Morada", name: "address", widget: "string" }
+          - { label: "Telefone", name: "phone", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - label: "Horário"
+            name: "hours"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Redes Sociais"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "Facebook URL", name: "facebook", widget: "string" }
+              - { label: "Instagram URL", name: "instagram", widget: "string" }
+          - label: "Google Maps Embed URL"
+            name: "mapEmbed"
+            widget: "string"
+            hint: "URL completa do iframe do Google Maps"
+
+  # ============================================
+  # HERO SECTION
+  # ============================================
+  - name: "hero"
+    label: "Secção Hero (Cabeçalho)"
+    files:
+      - name: "hero"
+        label: "Conteúdo do Hero"
+        file: "content/hero.json"
+        format: "json"
+        fields:
+          - label: "Badge"
+            name: "badge"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Chips (Informações rápidas)"
+            name: "chips"
+            widget: "list"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Título"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Descrição"
+            name: "description"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+          - label: "Botão CTA"
+            name: "cta"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Link", name: "href", widget: "string", default: "#contactos" }
+
+  # ============================================
+  # ABOUT SECTION
+  # ============================================
+  - name: "about"
+    label: "Secção Sobre"
+    files:
+      - name: "about"
+        label: "Conteúdo Sobre Nós"
+        file: "content/about.json"
+        format: "json"
+        fields:
+          - label: "Etiqueta da Secção"
+            name: "label"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Título"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Texto"
+            name: "text"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+          - label: "Características"
+            name: "features"
+            widget: "list"
+            fields:
+              - { label: "Ícone (FontAwesome class)", name: "icon", widget: "string", hint: "Ex: fas fa-heart" }
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Imagens"
+            name: "images"
+            widget: "list"
+            field: { label: "Imagem", name: "src", widget: "image" }
+
+  # ============================================
+  # VALUES SECTION
+  # ============================================
+  - name: "values"
+    label: "Secção Valores"
+    files:
+      - name: "values"
+        label: "Os Nossos Valores"
+        file: "content/values.json"
+        format: "json"
+        fields:
+          - label: "Etiqueta da Secção"
+            name: "label"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Título"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Valores"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Ícone (FontAwesome class)", name: "icon", widget: "string", hint: "Ex: fas fa-book-open-reader" }
+              - label: "Título"
+                name: "title"
+                widget: "object"
+                fields:
+                  - { label: "Português", name: "pt", widget: "string" }
+                  - { label: "English", name: "en", widget: "string" }
+              - label: "Descrição"
+                name: "description"
+                widget: "object"
+                fields:
+                  - { label: "Português", name: "pt", widget: "text" }
+                  - { label: "English", name: "en", widget: "text" }
+
+  # ============================================
+  # CTA SECTION
+  # ============================================
+  - name: "cta"
+    label: "Secção CTA (Chamada à Ação)"
+    files:
+      - name: "cta"
+        label: "Conteúdo CTA"
+        file: "content/cta.json"
+        format: "json"
+        fields:
+          - label: "Título"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Descrição"
+            name: "description"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+          - label: "Botão"
+            name: "button"
+            widget: "object"
+            fields:
+              - { label: "Português", name: "pt", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Link", name: "href", widget: "string", default: "#contactos" }
+
+  # ============================================
+  # TESTIMONIALS (folder collection)
+  # ============================================
+  - name: "testimonials"
+    label: "Testemunhos"
+    label_singular: "Testemunho"
+    folder: "content/testimonials"
+    create: true
+    format: "json"
+    slug: "{{slug}}"
+    identifier_field: "name"
+    description: "Testemunhos de pais e famílias."
+    sortable_fields: ["name", "order"]
+    fields:
+      - { label: "Nome", name: "name", widget: "string" }
+      - { label: "Ordem", name: "order", widget: "number", default: 0, hint: "Número para ordenar (menor = primeiro)" }
+      - { label: "Estrelas (1-5)", name: "stars", widget: "number", min: 1, max: 5, default: 5 }
+      - label: "Texto do Testemunho"
+        name: "text"
+        widget: "object"
+        fields:
+          - { label: "Português", name: "pt", widget: "text" }
+          - { label: "English", name: "en", widget: "text" }
+      - { label: "Inicial do Avatar", name: "avatar", widget: "string", hint: "Primeira letra do nome" }
+      - label: "Fonte"
+        name: "source"
+        widget: "object"
+        fields:
+          - { label: "Plataforma", name: "platform", widget: "select", options: ["Google Review", "Facebook", "Website"], default: "Google Review" }
+          - { label: "Ícone (FontAwesome class)", name: "icon", widget: "string", default: "fab fa-google" }
+      - { label: "Link para Reviews", name: "reviewsUrl", widget: "string", required: false, hint: "URL para ver mais reviews (opcional)" }
+
+  # ============================================
+  # GALLERY (folder collection for image management)
+  # ============================================
+  - name: "gallery"
+    label: "Galeria"
+    label_singular: "Imagem da Galeria"
+    folder: "content/gallery"
+    create: true
+    format: "json"
+    slug: "{{slug}}"
+    identifier_field: "title"
+    description: "Gestão de imagens da galeria de fotos."
+    sortable_fields: ["order", "title"]
+    fields:
+      - { label: "Título / Descrição", name: "title", widget: "string" }
+      - { label: "Imagem", name: "image", widget: "image" }
+      - { label: "Ordem", name: "order", widget: "number", default: 0 }
+      - { label: "Visível", name: "visible", widget: "boolean", default: true }
