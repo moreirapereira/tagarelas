@@ -3,14 +3,74 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tagarelas à Solta - Content Manager</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Tagarelas à Solta - Gestor de Conteúdos</title>
+    <link rel="icon" type="image/png" href="../img/gallery/logo.png" />
+
+    <!-- Custom CMS Styling -->
+    <style>
+      /* Brand the CMS with Tagarelas colours */
+      :root {
+        --tagarelas-primary: #1a3c39;
+        --tagarelas-accent: #d4a843;
+        --tagarelas-bg: #f7f8f5;
+      }
+
+      /* Loading screen while CMS initialises */
+      #cms-loading {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--tagarelas-primary), #2d5a55);
+        color: white;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        transition: opacity 0.4s ease;
+      }
+      #cms-loading.hidden { opacity: 0; pointer-events: none; }
+      #cms-loading img { width: 90px; height: 90px; object-fit: contain; margin-bottom: 20px; animation: pulse 1.5s ease-in-out infinite; }
+      #cms-loading h1 { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+      #cms-loading p { font-size: 0.9rem; opacity: 0.75; }
+      @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: 0.8; } }
+
+      .spinner {
+        width: 36px; height: 36px;
+        border: 3px solid rgba(255,255,255,0.2);
+        border-top-color: var(--tagarelas-accent);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-top: 24px;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
   </head>
   <body>
-    <!-- Include the script that powers Sveltia CMS (drop-in Decap CMS replacement) -->
+    <!-- Branded loading screen -->
+    <div id="cms-loading">
+      <img src="../img/gallery/logo.png" alt="Tagarelas à Solta" />
+      <h1>Gestor de Conteúdos</h1>
+      <p>A carregar o painel de administração…</p>
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Sveltia CMS -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+
     <script>
-      // Decap CMS will auto-detect local_backend: true in config.yml
-      // and connect to the local proxy at http://localhost:8081/api/v1
+      // Hide loading screen once CMS renders
+      const observer = new MutationObserver(() => {
+        if (document.querySelector('[class*="App"]') || document.querySelector('#nc-root') || document.querySelector('main')) {
+          const loader = document.getElementById('cms-loading');
+          if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 500); }
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+      // Fallback: remove after 6 seconds regardless
+      setTimeout(() => { const l = document.getElementById('cms-loading'); if (l) { l.classList.add('hidden'); setTimeout(() => l.remove(), 500); } }, 6000);
     </script>
   </body>
 </html>

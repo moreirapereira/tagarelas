@@ -13,249 +13,280 @@ public_folder: "/tagarelas/img/gallery"
 # Locale for the CMS UI
 locale: "pt"
 
-# Site URL
+# Site URL & display
 site_url: https://moreirapereira.github.io/tagarelas
+display_url: https://moreirapereira.github.io/tagarelas
 
 # Logo displayed in the CMS sidebar
 logo_url: "/tagarelas/img/gallery/logo.png"
 
+# Show a link to the live site when editing
+show_preview_links: true
+
+# Slug settings for cleaner filenames
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
 collections:
   # ============================================
-  # SITE SETTINGS (single file collection)
+  # 🏠 PÁGINA PRINCIPAL
   # ============================================
-  - name: "settings"
-    label: "Definições do Site"
-    label_singular: "Definição"
-    description: "Informações gerais do site como contactos e redes sociais."
-    files:
-      - name: "contact"
-        label: "Informações de Contacto"
-        file: "content/settings.json"
-        format: "json"
-        fields:
-          - { label: "Morada", name: "address", widget: "string" }
-          - { label: "Telefone", name: "phone", widget: "string" }
-          - { label: "Email", name: "email", widget: "string" }
-          - label: "Horário"
-            name: "hours"
-            widget: "object"
-            fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-          - label: "Redes Sociais"
-            name: "social"
-            widget: "object"
-            fields:
-              - { label: "Facebook URL", name: "facebook", widget: "string" }
-              - { label: "Instagram URL", name: "instagram", widget: "string" }
-          - label: "Google Maps Embed URL"
-            name: "mapEmbed"
-            widget: "string"
-            hint: "URL completa do iframe do Google Maps"
 
-  # ============================================
-  # HERO SECTION
-  # ============================================
+  # --- Hero Section ---
   - name: "hero"
-    label: "Secção Hero (Cabeçalho)"
+    label: "🎯 Cabeçalho (Hero)"
+    icon: "star"
+    description: "O banner principal que aparece no topo do site. Inclui título, descrição e botão de ação."
     files:
       - name: "hero"
-        label: "Conteúdo do Hero"
+        label: "Conteúdo do Cabeçalho"
         file: "content/hero.json"
         format: "json"
         fields:
-          - label: "Badge"
+          - label: "🏷️ Badge (etiqueta no topo)"
             name: "badge"
             widget: "object"
+            collapsed: true
+            hint: "Pequeno texto que aparece acima do título principal"
             fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-          - label: "Chips (Informações rápidas)"
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+          - label: "📋 Chips (informações rápidas)"
             name: "chips"
             widget: "list"
+            hint: "Pequenos destaques como idade das crianças, horário, etc."
+            collapsed: true
             fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-          - label: "Título"
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+          - label: "📝 Título Principal"
             name: "title"
             widget: "object"
             fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-          - label: "Descrição"
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+          - label: "📄 Descrição"
             name: "description"
             widget: "object"
             fields:
-              - { label: "Português", name: "pt", widget: "text" }
-              - { label: "English", name: "en", widget: "text" }
-          - label: "Botão CTA"
+              - { label: "🇵🇹 Português", name: "pt", widget: "text" }
+              - { label: "🇬🇧 English", name: "en", widget: "text" }
+          - label: "🔘 Botão de Ação (CTA)"
             name: "cta"
             widget: "object"
             fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-              - { label: "Link", name: "href", widget: "string", default: "#contactos" }
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+              - { label: "🔗 Link", name: "href", widget: "string", default: "#contactos", hint: "Ex: #contactos ou um URL externo" }
 
-  # ============================================
-  # ABOUT SECTION
-  # ============================================
+  # --- About Section ---
   - name: "about"
-    label: "Secção Sobre"
+    label: "ℹ️ Sobre Nós"
+    icon: "info"
+    description: "Secção que apresenta o jardim de infância, a sua historia e as suas características."
     files:
       - name: "about"
         label: "Conteúdo Sobre Nós"
         file: "content/about.json"
         format: "json"
         fields:
-          - label: "Etiqueta da Secção"
+          - label: "🏷️ Etiqueta da Secção"
             name: "label"
             widget: "object"
+            collapsed: true
             fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-          - label: "Título"
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+          - label: "📝 Título"
             name: "title"
             widget: "object"
             fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-          - label: "Texto"
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+          - label: "📄 Texto"
             name: "text"
             widget: "object"
             fields:
-              - { label: "Português", name: "pt", widget: "text" }
-              - { label: "English", name: "en", widget: "text" }
-          - label: "Características"
+              - { label: "🇵🇹 Português", name: "pt", widget: "text" }
+              - { label: "🇬🇧 English", name: "en", widget: "text" }
+          - label: "✨ Características"
             name: "features"
             widget: "list"
+            hint: "Pontos fortes do jardim de infância (ex: Equipa dedicada, Espaço seguro)"
             fields:
-              - { label: "Ícone (FontAwesome class)", name: "icon", widget: "string", hint: "Ex: fas fa-heart" }
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-          - label: "Imagens"
+              - { label: "🎨 Ícone", name: "icon", widget: "string", hint: "Classe FontAwesome, ex: fas fa-heart" }
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+          - label: "🖼️ Imagens da Secção"
             name: "images"
             widget: "list"
+            hint: "Fotos que aparecem ao lado do texto (recomendado: 3 imagens)"
             field: { label: "Imagem", name: "src", widget: "image" }
 
-  # ============================================
-  # VALUES SECTION
-  # ============================================
+  # --- Values Section ---
   - name: "values"
-    label: "Secção Valores"
+    label: "💎 Valores"
+    icon: "heart"
+    description: "Os valores fundamentais do jardim que aparecem como cartões no site."
     files:
       - name: "values"
         label: "Os Nossos Valores"
         file: "content/values.json"
         format: "json"
         fields:
-          - label: "Etiqueta da Secção"
+          - label: "🏷️ Etiqueta da Secção"
             name: "label"
             widget: "object"
+            collapsed: true
             fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-          - label: "Título"
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+          - label: "📝 Título"
             name: "title"
             widget: "object"
             fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-          - label: "Valores"
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+          - label: "📦 Valores"
             name: "items"
             widget: "list"
+            hint: "Cada valor aparece como um cartão no site"
             fields:
-              - { label: "Ícone (FontAwesome class)", name: "icon", widget: "string", hint: "Ex: fas fa-book-open-reader" }
-              - label: "Título"
+              - { label: "🎨 Ícone", name: "icon", widget: "string", hint: "Classe FontAwesome, ex: fas fa-book-open-reader" }
+              - label: "📝 Título"
                 name: "title"
                 widget: "object"
                 fields:
-                  - { label: "Português", name: "pt", widget: "string" }
-                  - { label: "English", name: "en", widget: "string" }
-              - label: "Descrição"
+                  - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+                  - { label: "🇬🇧 English", name: "en", widget: "string" }
+              - label: "📄 Descrição"
                 name: "description"
                 widget: "object"
                 fields:
-                  - { label: "Português", name: "pt", widget: "text" }
-                  - { label: "English", name: "en", widget: "text" }
+                  - { label: "🇵🇹 Português", name: "pt", widget: "text" }
+                  - { label: "🇬🇧 English", name: "en", widget: "text" }
 
-  # ============================================
-  # CTA SECTION
-  # ============================================
+  # --- CTA Section ---
   - name: "cta"
-    label: "Secção CTA (Chamada à Ação)"
+    label: "📣 Chamada à Ação (CTA)"
+    icon: "megaphone"
+    description: "A secção de destaque que convida os visitantes a entrar em contacto."
     files:
       - name: "cta"
         label: "Conteúdo CTA"
         file: "content/cta.json"
         format: "json"
         fields:
-          - label: "Título"
+          - label: "📝 Título"
             name: "title"
             widget: "object"
             fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-          - label: "Descrição"
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+          - label: "📄 Descrição"
             name: "description"
             widget: "object"
             fields:
-              - { label: "Português", name: "pt", widget: "text" }
-              - { label: "English", name: "en", widget: "text" }
-          - label: "Botão"
+              - { label: "🇵🇹 Português", name: "pt", widget: "text" }
+              - { label: "🇬🇧 English", name: "en", widget: "text" }
+          - label: "🔘 Botão"
             name: "button"
             widget: "object"
             fields:
-              - { label: "Português", name: "pt", widget: "string" }
-              - { label: "English", name: "en", widget: "string" }
-              - { label: "Link", name: "href", widget: "string", default: "#contactos" }
+              - { label: "🇵🇹 Português", name: "pt", widget: "string" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+              - { label: "🔗 Link", name: "href", widget: "string", default: "#contactos" }
 
   # ============================================
-  # GALLERY (folder collection for image management)
+  # ⚙️ DEFINIÇÕES GERAIS
   # ============================================
+  - name: "settings"
+    label: "⚙️ Definições do Site"
+    icon: "settings"
+    label_singular: "Definição"
+    description: "Informações gerais: contactos, redes sociais, mapa e horário."
+    files:
+      - name: "contact"
+        label: "Informações de Contacto"
+        file: "content/settings.json"
+        format: "json"
+        fields:
+          - { label: "📍 Morada", name: "address", widget: "string" }
+          - { label: "📞 Telefone", name: "phone", widget: "string", hint: "Ex: +351 910 588 380" }
+          - { label: "📧 Email", name: "email", widget: "string" }
+          - label: "🕐 Horário"
+            name: "hours"
+            widget: "object"
+            fields:
+              - { label: "🇵🇹 Português", name: "pt", widget: "string", hint: "Ex: Segunda a Sexta, 7h00 - 19h30" }
+              - { label: "🇬🇧 English", name: "en", widget: "string" }
+          - label: "🌐 Redes Sociais"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "Facebook URL", name: "facebook", widget: "string" }
+              - { label: "Instagram URL", name: "instagram", widget: "string" }
+          - label: "🗺️ Google Maps Embed URL"
+            name: "mapEmbed"
+            widget: "string"
+            hint: "Cole aqui o URL do iframe do Google Maps (Menu Partilhar > Incorporar mapa)"
+
+  # ============================================
+  # 🖼️ CONTEÚDOS DINÂMICOS
+  # ============================================
+
+  # --- Gallery ---
   - name: "gallery"
-    label: "Galeria"
-    label_singular: "Imagem da Galeria"
+    label: "🖼️ Galeria de Fotos"
+    label_singular: "Foto"
+    icon: "image"
     folder: "content/gallery"
     create: true
+    delete: true
     format: "json"
-    slug: "{{slug}}"
+    slug: "foto-{{slug}}"
     identifier_field: "title"
-    description: "Gestão de imagens da galeria de fotos."
+    description: "Adicione, edite ou remova fotos da galeria do site. Arraste para reordenar."
     sortable_fields: ["order", "title"]
+    summary: "{{title}} — Ordem: {{order}} {{#if visible}}✅{{else}}🚫{{/if}}"
     fields:
-      - { label: "Título / Descrição", name: "title", widget: "string" }
-      - { label: "Imagem", name: "image", widget: "image" }
-      - { label: "Ordem", name: "order", widget: "number", default: 0 }
-      - { label: "Visível", name: "visible", widget: "boolean", default: true }
+      - { label: "📝 Título / Descrição", name: "title", widget: "string", hint: "Breve descrição da foto (aparece ao passar o rato)" }
+      - { label: "🖼️ Imagem", name: "image", widget: "image", hint: "Formatos aceites: JPG, PNG, WebP. Tamanho recomendado: 1200x800px" }
+      - { label: "🔢 Ordem", name: "order", widget: "number", default: 0, hint: "Número de ordenação (menor aparece primeiro)" }
+      - { label: "👁️ Visível no site?", name: "visible", widget: "boolean", default: true, hint: "Desative para esconder temporariamente sem apagar" }
 
-  # ============================================
-  # TESTIMONIALS (folder collection)
-  # ============================================
+  # --- Testimonials ---
   - name: "testimonials"
-    label: "Testemunhos"
+    label: "⭐ Testemunhos"
     label_singular: "Testemunho"
+    icon: "quote"
     folder: "content/testimonials"
     create: true
+    delete: true
     format: "json"
     slug: "{{slug}}"
     identifier_field: "name"
-    description: "Testemunhos de pais e famílias."
+    description: "Testemunhos de pais e famílias. Adicione novos ou edite os existentes."
     sortable_fields: ["name", "order"]
+    summary: "{{name}} — ⭐{{stars}} — Ordem: {{order}}"
     fields:
-      - { label: "Nome", name: "name", widget: "string" }
-      - { label: "Ordem", name: "order", widget: "number", default: 0, hint: "Número para ordenar (menor = primeiro)" }
-      - { label: "Estrelas (1-5)", name: "stars", widget: "number", min: 1, max: 5, default: 5 }
-      - label: "Texto do Testemunho"
+      - { label: "👤 Nome", name: "name", widget: "string" }
+      - { label: "🔢 Ordem", name: "order", widget: "number", default: 0, hint: "Número para ordenar (menor = primeiro)" }
+      - { label: "⭐ Estrelas (1-5)", name: "stars", widget: "number", min: 1, max: 5, default: 5, hint: "Avaliação de 1 a 5 estrelas" }
+      - label: "💬 Texto do Testemunho"
         name: "text"
         widget: "object"
         fields:
-          - { label: "Português", name: "pt", widget: "text" }
-          - { label: "English", name: "en", widget: "text" }
-      - { label: "Inicial do Avatar", name: "avatar", widget: "string", hint: "Primeira letra do nome" }
-      - label: "Fonte"
+          - { label: "🇵🇹 Português", name: "pt", widget: "text" }
+          - { label: "🇬🇧 English", name: "en", widget: "text" }
+      - { label: "🅰️ Inicial do Avatar", name: "avatar", widget: "string", hint: "Uma letra (a primeira do nome)" }
+      - label: "📌 Fonte"
         name: "source"
         widget: "object"
+        collapsed: true
         fields:
           - { label: "Plataforma", name: "platform", widget: "select", options: ["Google Review", "Facebook", "Website"], default: "Google Review" }
-          - { label: "Ícone (FontAwesome class)", name: "icon", widget: "string", default: "fab fa-google" }
-      - { label: "Link para Reviews", name: "reviewsUrl", widget: "string", required: false, hint: "URL para ver mais reviews (opcional)" }
+          - { label: "Ícone", name: "icon", widget: "string", default: "fab fa-google", hint: "Classe FontAwesome (fab fa-google, fab fa-facebook, fas fa-globe)" }
+      - { label: "🔗 Link para Reviews", name: "reviewsUrl", widget: "string", required: false, hint: "URL para a página de reviews (opcional)" }
