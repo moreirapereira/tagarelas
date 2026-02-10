@@ -14,8 +14,8 @@
 <link rel="alternate" hreflang="en" href="https://tagarelasasolta.pt/?lang=en">
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="/img/gallery/logo.png">
-<link rel="apple-touch-icon" href="/img/gallery/logo.png">
+<link rel="icon" type="image/png" href="img/gallery/logo.png">
+<link rel="apple-touch-icon" href="img/gallery/logo.png">
 
 <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
 <meta property="og:type" content="website">
@@ -76,8 +76,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Netlify Identity Widget (required for Decap CMS authentication) -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 <style>
 :root {
@@ -2134,58 +2132,64 @@ function initScrollReveal() {
 let galleryImages = [];
 let currentImageIndex = 0;
 
-function loadGallery() {
+// Normalize image paths from CMS JSON (handles both /img/... and /tagarelas/img/... formats)
+function normalizePath(path) {
+  if (!path) return path;
+  // Strip leading /tagarelas/ if present (GitHub Pages subpath)
+  path = path.replace(/^\/tagarelas\//, '');
+  // Strip leading slash to make it relative
+  path = path.replace(/^\//, '');
+  return path;
+}
+
+async function loadGallery() {
   const galleryContainer = document.getElementById('galleryContainer');
   if (!galleryContainer) return;
-  
-  const imageExtensions = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
-  let imagesLoaded = 0;
-  let imagesAttempted = 0;
-  let totalAttempts = 50 * imageExtensions.length;
 
-  async function loadImages() {
-    for (let i = 1; i <= 50; i++) {
-      for (const ext of imageExtensions) {
-        const imagePath = `img/gallery/${i}.${ext}`;
-        imagesAttempted++;
-
-        const img = new Image();
-        img.onload = function() {
-          imagesLoaded++;
-          galleryImages.push(imagePath);
-
-          const galleryItem = document.createElement('div');
-          galleryItem.className = 'gallery-item';
-          galleryItem.dataset.index = galleryImages.length - 1;
-          galleryItem.innerHTML = `
-            <img src="${imagePath}" alt="Galeria foto ${imagesLoaded}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
-            <div class="gallery-overlay">
-              <p>Foto ${imagesLoaded}</p>
-            </div>
-          `;
-
-          galleryItem.addEventListener('click', function() {
-            openLightbox(parseInt(this.dataset.index));
-          });
-
-          galleryContainer.appendChild(galleryItem);
-        };
-        img.onerror = function() {
-          // Image not found, continue
-        };
-        img.src = imagePath;
-      }
-    }
-
-    // Check after loading attempts complete
-    setTimeout(() => {
-      if (imagesLoaded === 0) {
-        galleryContainer.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#999;padding:40px;" data-pt="Nenhuma imagem encontrada." data-en="No images found.">Nenhuma imagem encontrada.</p>';
-      }
-    }, 3000);
+  // Fetch gallery data from CMS JSON files (content/gallery/foto-N.json)
+  const fetches = [];
+  for (let i = 1; i <= 50; i++) {
+    fetches.push(
+      fetch(`content/gallery/foto-${i}.json`)
+        .then(r => r.ok ? r.json() : null)
+        .catch(() => null)
+    );
   }
 
-  loadImages();
+  let galleryData = (await Promise.all(fetches)).filter(Boolean);
+
+  // Sort by order field, then filter only visible items
+  galleryData.sort((a, b) => (a.order || 0) - (b.order || 0));
+  const visibleItems = galleryData.filter(item => item.visible !== false);
+
+  galleryContainer.innerHTML = '';
+  galleryImages = [];
+
+  if (visibleItems.length === 0) {
+    galleryContainer.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#999;padding:40px;" data-pt="Nenhuma imagem encontrada." data-en="No images found.">Nenhuma imagem encontrada.</p>';
+    return;
+  }
+
+  visibleItems.forEach((item, idx) => {
+    const imagePath = normalizePath(item.image);
+    galleryImages.push(imagePath);
+
+    const galleryItem = document.createElement('div');
+    galleryItem.className = 'gallery-item';
+    galleryItem.dataset.index = idx;
+    galleryItem.innerHTML = `
+      <img src="${imagePath}" alt="${item.title || 'Galeria foto ' + (idx + 1)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">
+        <p>${item.title || 'Foto ' + (idx + 1)}</p>
+      </div>
+    `;
+
+    galleryItem.addEventListener('click', function() {
+      openLightbox(parseInt(this.dataset.index));
+    });
+
+    galleryContainer.appendChild(galleryItem);
+  });
 }
 
 // ===== LIGHTBOX =====
@@ -2304,7 +2308,7 @@ document.addEventListener('keydown', function(e) {
 
     const images = section.querySelectorAll('.img-wrapper img');
     data.images.forEach((src, i) => {
-      if (images[i]) images[i].src = src.replace(/^\//, '');
+      if (images[i]) images[i].src = normalizePath(src);
     });
   }).catch(() => {});
 
@@ -2384,20 +2388,15 @@ document.addEventListener('keydown', function(e) {
     }
   }).catch(() => {});
 
-  // Load Testimonials from individual JSON files
-  fetch('content/testimonials/').then(r => r.text()).then(html => {
-    // Parse directory listing to find JSON files (works on most static hosts)
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const links = Array.from(doc.querySelectorAll('a'))
-      .map(a => a.getAttribute('href'))
-      .filter(href => href && href.endsWith('.json'));
-    return Promise.all(links.map(f => {
-      const url = f.startsWith('content/') ? f : 'content/testimonials/' + f;
-      return fetch(url).then(r => r.json());
-    }));
-  }).then(testimonials => {
-    if (!testimonials || testimonials.length === 0) return;
+  // Load Testimonials from individual JSON files (known files + sequential probing)
+  (async function loadTestimonials() {
+    const knownFiles = ['susana-rocha.json', 'natalia-navarro.json', 'thallita-brito.json'];
+    const fetches = knownFiles.map(f =>
+      fetch('content/testimonials/' + f).then(r => r.ok ? r.json() : null).catch(() => null)
+    );
+    const testimonials = (await Promise.all(fetches)).filter(Boolean);
+    if (testimonials.length === 0) return;
+
     testimonials.sort((a, b) => (a.order || 0) - (b.order || 0));
 
     const grid = document.querySelector('.testimonials-grid');
@@ -2430,66 +2429,11 @@ document.addEventListener('keydown', function(e) {
         TRANSLATIONS.en[key] = el.dataset.en;
       }
     });
-  }).catch(() => {
-    // Fallback: try loading known testimonial files directly
-    const knownFiles = ['susana-rocha.json', 'natalia-navarro.json', 'thallita-brito.json'];
-    Promise.all(knownFiles.map(f => fetch('content/testimonials/' + f).then(r => r.json()).catch(() => null)))
-      .then(testimonials => {
-        testimonials = testimonials.filter(Boolean);
-        if (testimonials.length === 0) return;
-        testimonials.sort((a, b) => (a.order || 0) - (b.order || 0));
-
-        const grid = document.querySelector('.testimonials-grid');
-        if (!grid) return;
-        grid.innerHTML = '';
-
-        testimonials.forEach(t => {
-          const stars = Array(t.stars).fill('<i class="fas fa-star"></i>').join('');
-          const card = document.createElement('div');
-          card.className = 'testimonial-card';
-          card.innerHTML = `
-            <div class="testimonial-stars">${stars}</div>
-            <p class="testimonial-text" data-pt="${t.text.pt.replace(/"/g, '&quot;')}" data-en="${t.text.en.replace(/"/g, '&quot;')}">${lang === 'en' ? t.text.en : t.text.pt}</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar">${t.avatar}</div>
-              <div>
-                <div class="testimonial-name">${t.name}</div>
-                <div class="testimonial-source"><i class="${t.source.icon}"></i> ${t.source.platform}</div>
-              </div>
-            </div>
-          `;
-          grid.appendChild(card);
-        });
-
-        grid.querySelectorAll('[data-pt][data-en]').forEach(el => {
-          const key = el.dataset.pt;
-          if (key) {
-            TRANSLATIONS.pt[key] = el.dataset.pt;
-            TRANSLATIONS.en[key] = el.dataset.en;
-          }
-        });
-      });
-  });
+  })();
 })();
 </script>
 
-<!-- Netlify Identity: handle invite/confirmation tokens and login redirect -->
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on('init', user => {
-      if (!user) {
-        window.netlifyIdentity.on('login', () => {
-          document.location.href = '/admin/';
-        });
-        // Open the Identity modal when arriving via invite/confirmation email link
-        const hash = window.location.hash;
-        if (hash && (hash.includes('invite_token=') || hash.includes('confirmation_token=') || hash.includes('recovery_token='))) {
-          window.netlifyIdentity.open('signup');
-        }
-      }
-    });
-  }
-</script>
+
 
 </body>
 </html>
