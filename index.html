@@ -2416,7 +2416,7 @@ document.addEventListener('keydown', function(e) {
 })();
 </script>
 
-<!-- Netlify Identity redirect after login -->
+<!-- Netlify Identity: handle invite/confirmation tokens and login redirect -->
 <script>
   if (window.netlifyIdentity) {
     window.netlifyIdentity.on('init', user => {
@@ -2426,6 +2426,11 @@ document.addEventListener('keydown', function(e) {
         });
       }
     });
+    // Open the Identity modal when arriving via invite/confirmation email link
+    const hash = window.location.hash;
+    if (hash && (hash.includes('invite_token=') || hash.includes('confirmation_token=') || hash.includes('recovery_token='))) {
+      window.netlifyIdentity.open();
+    }
   }
 </script>
 
