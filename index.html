@@ -436,6 +436,22 @@ header::after {
   animation: fadeInDown 0.8s ease-out;
 }
 
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: rgba(212,168,67,.25);
+  border: 1px solid rgba(212,168,67,.5);
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-light);
+  backdrop-filter: blur(10px);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
 .hero-chip {
   display: inline-flex;
   align-items: center;
@@ -1668,6 +1684,7 @@ footer .footer-social a:hover {
 <header>
   <div class="hero-content">
     <div class="hero-info">
+      <span class="hero-badge" data-pt="Jardim de Infância" data-en="Kindergarten"><i class="fas fa-seedling"></i> Jardim de Infância</span>
       <span class="hero-chip" data-pt="Pré-Escolar: 3 aos 6 anos" data-en="Pre-school: Ages 3 to 6"><i class="fas fa-child"></i> Pré-Escolar: 3 aos 6 anos</span>
       <span class="hero-chip" data-pt="Horário: 07h - 19h30" data-en="Hours: 7:00 AM - 7:30 PM"><i class="fas fa-clock"></i> Horário: 07h - 19h30</span>
     </div>
@@ -2325,20 +2342,45 @@ document.addEventListener('keydown', function(e) {
     const text = section.querySelector('.about-text p');
     if (text) setI18n(text, data.text.pt, data.text.en);
 
-    const features = section.querySelectorAll('.about-feature');
-    data.features.forEach((feat, i) => {
-      if (features[i]) {
-        const icon = features[i].querySelector('i');
-        if (icon) icon.className = feat.icon;
-        const span = features[i].querySelector('span');
-        if (span) setI18n(span, feat.pt, feat.en);
-      }
-    });
+    // Dynamically rebuild features from CMS data
+    const featuresContainer = section.querySelector('.about-features');
+    if (featuresContainer && data.features && data.features.length > 0) {
+      featuresContainer.innerHTML = '';
+      data.features.forEach(feat => {
+        const div = document.createElement('div');
+        div.className = 'about-feature';
+        const i = document.createElement('i');
+        i.className = feat.icon;
+        const span = document.createElement('span');
+        span.setAttribute('data-pt', feat.pt);
+        span.setAttribute('data-en', feat.en);
+        span.textContent = lang === 'en' ? feat.en : feat.pt;
+        div.appendChild(i);
+        div.appendChild(span);
+        featuresContainer.appendChild(div);
+      });
+      // Register i18n
+      featuresContainer.querySelectorAll('[data-pt][data-en]').forEach(el => {
+        TRANSLATIONS.pt[el.dataset.pt] = el.dataset.pt;
+        TRANSLATIONS.en[el.dataset.pt] = el.dataset.en;
+      });
+    }
 
-    const images = section.querySelectorAll('.img-wrapper img');
-    data.images.forEach((src, i) => {
-      if (images[i]) images[i].src = normalizePath(src);
-    });
+    // Dynamically rebuild image grid from CMS data
+    const imageGrid = section.querySelector('.about-image-grid');
+    if (imageGrid && data.images && data.images.length > 0) {
+      imageGrid.innerHTML = '';
+      data.images.forEach(src => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'img-wrapper';
+        const img = document.createElement('img');
+        img.src = normalizePath(src);
+        img.alt = 'Tagarelas à Solta';
+        img.loading = 'lazy';
+        wrapper.appendChild(img);
+        imageGrid.appendChild(wrapper);
+      });
+    }
   }).catch(() => {});
 
   // Load Values content
@@ -2352,17 +2394,26 @@ document.addEventListener('keydown', function(e) {
     const title = section.querySelector('.section-title');
     if (title) setI18n(title, data.title.pt, data.title.en);
 
-    const cards = section.querySelectorAll('.value-card');
-    data.items.forEach((item, i) => {
-      if (cards[i]) {
-        const icon = cards[i].querySelector('.value-icon i');
-        if (icon) icon.className = item.icon;
-        const h3 = cards[i].querySelector('h3');
-        if (h3) setI18n(h3, item.title.pt, item.title.en);
-        const p = cards[i].querySelector('p');
-        if (p) setI18n(p, item.description.pt, item.description.en);
-      }
-    });
+    // Dynamically rebuild value cards from CMS data
+    const grid = section.querySelector('.values-grid');
+    if (grid && data.items && data.items.length > 0) {
+      grid.innerHTML = '';
+      data.items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'value-card';
+        card.innerHTML = `
+          <div class="value-icon"><i class="${item.icon}"></i></div>
+          <h3 data-pt="${item.title.pt.replace(/"/g, '&quot;')}" data-en="${item.title.en.replace(/"/g, '&quot;')}">${lang === 'en' ? item.title.en : item.title.pt}</h3>
+          <p data-pt="${item.description.pt.replace(/"/g, '&quot;')}" data-en="${item.description.en.replace(/"/g, '&quot;')}">${lang === 'en' ? item.description.en : item.description.pt}</p>
+        `;
+        grid.appendChild(card);
+      });
+      // Register i18n
+      grid.querySelectorAll('[data-pt][data-en]').forEach(el => {
+        TRANSLATIONS.pt[el.dataset.pt] = el.dataset.pt;
+        TRANSLATIONS.en[el.dataset.pt] = el.dataset.en;
+      });
+    }
   }).catch(() => {});
 
   // Load Contact/Settings content
@@ -2387,7 +2438,7 @@ document.addEventListener('keydown', function(e) {
       }
     });
 
-    // Update social links
+    // Update social links in contact section
     const socialLinks = section.querySelectorAll('.social-links a');
     socialLinks.forEach(link => {
       if (link.querySelector('.fa-facebook-f')) link.href = data.social.facebook;
@@ -2397,6 +2448,16 @@ document.addEventListener('keydown', function(e) {
     // Update map
     const iframe = section.querySelector('iframe');
     if (iframe && data.mapEmbed) iframe.src = data.mapEmbed;
+
+    // Update footer social links & copyright from same settings
+    const footer = document.querySelector('footer');
+    if (footer) {
+      const footerSocial = footer.querySelectorAll('.footer-social a');
+      footerSocial.forEach(link => {
+        if (link.querySelector('.fa-facebook-f')) link.href = data.social.facebook;
+        if (link.querySelector('.fa-instagram')) link.href = data.social.instagram;
+      });
+    }
   }).catch(() => {});
 
   // Load CTA content
@@ -2417,10 +2478,28 @@ document.addEventListener('keydown', function(e) {
     }
   }).catch(() => {});
 
-  // Load Testimonials from individual JSON files (known files + sequential probing)
+  // Load Testimonials — auto-discover JSON files via GitHub API (like gallery)
   (async function loadTestimonials() {
-    const knownFiles = ['susana-rocha.json', 'natalia-navarro.json', 'thallita-brito.json'];
-    const fetches = knownFiles.map(f =>
+    let jsonFiles = [];
+    try {
+      const apiUrl = 'https://api.github.com/repos/moreirapereira/tagarelas/contents/content/testimonials?ref=github-pages';
+      const dirResponse = await fetch(apiUrl);
+      if (dirResponse.ok) {
+        const dirListing = await dirResponse.json();
+        jsonFiles = dirListing
+          .filter(f => f.name.endsWith('.json'))
+          .map(f => f.name);
+      }
+    } catch (e) {
+      // API failed — fall back to known files
+    }
+
+    // Fallback: if API didn't work, try known filenames
+    if (jsonFiles.length === 0) {
+      jsonFiles = ['susana-rocha.json', 'natalia-navarro.json', 'thallita-brito.json'];
+    }
+
+    const fetches = jsonFiles.map(f =>
       fetch('content/testimonials/' + f).then(r => r.ok ? r.json() : null).catch(() => null)
     );
     const testimonials = (await Promise.all(fetches)).filter(Boolean);
@@ -2432,7 +2511,11 @@ document.addEventListener('keydown', function(e) {
     if (!grid) return;
     grid.innerHTML = '';
 
+    // Collect reviewsUrl for the "Ver mais" link
+    let reviewsLink = '';
+
     testimonials.forEach(t => {
+      if (t.reviewsUrl && !reviewsLink) reviewsLink = t.reviewsUrl;
       const stars = Array(t.stars).fill('<i class="fas fa-star"></i>').join('');
       const card = document.createElement('div');
       card.className = 'testimonial-card';
@@ -2449,6 +2532,12 @@ document.addEventListener('keydown', function(e) {
       `;
       grid.appendChild(card);
     });
+
+    // Update the "Ver mais" link from CMS data
+    const ctaLink = document.querySelector('.testimonials-cta a');
+    if (ctaLink && reviewsLink) {
+      ctaLink.href = reviewsLink;
+    }
 
     // Re-register i18n for new testimonial elements
     grid.querySelectorAll('[data-pt][data-en]').forEach(el => {
