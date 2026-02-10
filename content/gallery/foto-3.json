@@ -1,6 +1,6 @@
-﻿{
-    "visible":  true,
-    "title":  "Foto 3",
-    "order":  3,
-    "image":  "/img/gallery/3.jpg"
+{
+  "title": "Foto 3",
+  "image": "/img/gallery/3.jpg",
+  "order": 3,
+  "visible": true
 }
