@@ -209,6 +209,25 @@ collections:
               - { label: "Link", name: "href", widget: "string", default: "#contactos" }
 
   # ============================================
+  # GALLERY (folder collection for image management)
+  # ============================================
+  - name: "gallery"
+    label: "Galeria"
+    label_singular: "Imagem da Galeria"
+    folder: "content/gallery"
+    create: true
+    format: "json"
+    slug: "{{slug}}"
+    identifier_field: "title"
+    description: "Gestão de imagens da galeria de fotos."
+    sortable_fields: ["order", "title"]
+    fields:
+      - { label: "Título / Descrição", name: "title", widget: "string" }
+      - { label: "Imagem", name: "image", widget: "image" }
+      - { label: "Ordem", name: "order", widget: "number", default: 0 }
+      - { label: "Visível", name: "visible", widget: "boolean", default: true }
+
+  # ============================================
   # TESTIMONIALS (folder collection)
   # ============================================
   - name: "testimonials"
@@ -239,22 +258,3 @@ collections:
           - { label: "Plataforma", name: "platform", widget: "select", options: ["Google Review", "Facebook", "Website"], default: "Google Review" }
           - { label: "Ícone (FontAwesome class)", name: "icon", widget: "string", default: "fab fa-google" }
       - { label: "Link para Reviews", name: "reviewsUrl", widget: "string", required: false, hint: "URL para ver mais reviews (opcional)" }
-
-  # ============================================
-  # GALLERY (folder collection for image management)
-  # ============================================
-  - name: "gallery"
-    label: "Galeria"
-    label_singular: "Imagem da Galeria"
-    folder: "content/gallery"
-    create: true
-    format: "json"
-    slug: "{{slug}}"
-    identifier_field: "title"
-    description: "Gestão de imagens da galeria de fotos."
-    sortable_fields: ["order", "title"]
-    fields:
-      - { label: "Título / Descrição", name: "title", widget: "string" }
-      - { label: "Imagem", name: "image", widget: "image" }
-      - { label: "Ordem", name: "order", widget: "number", default: 0 }
-      - { label: "Visível", name: "visible", widget: "boolean", default: true }

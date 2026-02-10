@@ -1,12 +1,78 @@
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tagarelas à Solta</title>
-<meta name="description" content="Tagarelas à Solta - Jardim de Infância de referência em Póvoa de Santa Iria, Lisboa. Creche em breve. Excelência no cuidado e educação infantil.">
+<title>Tagarelas à Solta — Jardim de Infância em Póvoa de Santa Iria</title>
+<meta name="description" content="Jardim de Infância de referência em Póvoa de Santa Iria, Lisboa. Educação pré-escolar dos 3 aos 6 anos com amor, segurança e alegria. Creche em breve.">
+<meta name="keywords" content="jardim de infância, Póvoa de Santa Iria, pré-escolar, creche, educação infantil, Tagarelas à Solta, Lisboa">
+<meta name="author" content="Tagarelas à Solta">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tagarelasasolta.pt/">
+<link rel="alternate" hreflang="pt" href="https://tagarelasasolta.pt/">
+<link rel="alternate" hreflang="en" href="https://tagarelasasolta.pt/?lang=en">
 
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/img/gallery/logo.png">
+<link rel="apple-touch-icon" href="/img/gallery/logo.png">
+
+<!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tagarelas à Solta — Jardim de Infância em Póvoa de Santa Iria">
+<meta property="og:description" content="Educação pré-escolar dos 3 aos 6 anos com amor, segurança e alegria. Cada criança no centro de tudo o que fazemos.">
+<meta property="og:image" content="https://tagarelasasolta.pt/img/gallery/logo.png">
+<meta property="og:url" content="https://tagarelasasolta.pt/">
+<meta property="og:site_name" content="Tagarelas à Solta">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:locale:alternate" content="en_GB">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tagarelas à Solta — Jardim de Infância">
+<meta name="twitter:description" content="Educação pré-escolar dos 3 aos 6 anos em Póvoa de Santa Iria. Amor, segurança e alegria.">
+<meta name="twitter:image" content="https://tagarelasasolta.pt/img/gallery/logo.png">
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ChildCare",
+  "name": "Tagarelas à Solta",
+  "description": "Jardim de Infância de referência em Póvoa de Santa Iria. Educação pré-escolar dos 3 aos 6 anos.",
+  "url": "https://tagarelasasolta.pt/",
+  "logo": "https://tagarelasasolta.pt/img/gallery/logo.png",
+  "image": "https://tagarelasasolta.pt/img/gallery/background.jpg",
+  "telephone": "+351910588380",
+  "email": "tagarelasasolta@sapo.pt",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Alameda de Aristides Sousa Mendes n.º 8 Loja R/C Drtº",
+    "addressLocality": "Póvoa de Santa Iria",
+    "postalCode": "2625-045",
+    "addressCountry": "PT"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.8538548,
+    "longitude": -9.068167599999999
+  },
+  "openingHours": "Mo-Fr 07:00-19:30",
+  "priceRange": "$$",
+  "sameAs": [
+    "https://www.facebook.com/p/Tagarelas-%C3%A0-Solta-100089645323231/",
+    "https://www.instagram.com/tagarelas_a_solta/"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "3",
+    "bestRating": "5"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <!-- Netlify Identity Widget (required for Decap CMS authentication) -->
@@ -366,21 +432,23 @@ header::after {
   display: flex;
   gap: 12px;
   justify-content: center;
-  margin-bottom: 18px;
+  margin-bottom: 28px;
   flex-wrap: wrap;
-  animation: fadeInUp 1s ease-out 0.3s both;
+  animation: fadeInDown 0.8s ease-out;
 }
 
 .hero-chip {
-  background: rgba(255,255,255,.08);
-  color: white;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  border: 1px solid rgba(255,255,255,.06);
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  padding: 8px 20px;
+  background: rgba(212,168,67,.15);
+  border: 1px solid rgba(212,168,67,.3);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-light);
+  backdrop-filter: blur(10px);
 }
 
 @keyframes fadeInDown {
@@ -388,7 +456,7 @@ header::after {
   to { opacity: 1; transform: translateY(0); }
 }
 
-header h2 {
+header h1 {
   font-family: 'Poppins', sans-serif;
   font-size: clamp(2.2rem, 5vw, 3.8rem);
   margin-bottom: 24px;
@@ -1444,7 +1512,7 @@ footer .footer-social a:hover {
     right: 16px;
   }
 
-  header h2 {
+  header h1 {
     font-size: clamp(1.8rem, 6vw, 2.5rem);
   }
 
@@ -1563,16 +1631,16 @@ footer .footer-social a:hover {
 <!-- NAVIGATION -->
 <nav>
   <a href="#" class="nav-brand">
-    <img src="img/gallery/logo.png" alt="Tagarelas à Solta" class="logo">
+    <img src="img/gallery/logo.png" alt="Tagarelas à Solta - Jardim de Infância" class="logo">
     <span class="header-text">Tagarelas à Solta</span>
   </a>
 
   <div class="nav-links" id="navLinks">
     <a href="#sobre" data-pt="Sobre" data-en="About">Sobre</a>
     <a href="#valores" data-pt="Valores" data-en="Values">Valores</a>
-    <a href="#galeria" data-pt="Galeria" data-en="Gallery">Galeria</a>
     <a href="#testemunhos" data-pt="Testemunhos" data-en="Testimonials">Testemunhos</a>
-    <a href="#contactos" data-pt="Contactos" data-en="Contact">Contactos</a>
+    <a href="#galeria" data-pt="Galeria" data-en="Gallery">Galeria</a>
+    <a href="#contactos" data-pt="Contactos" data-en="Contacts">Contactos</a>
     
     <!-- Language dropdown (desktop & mobile inside the sliding menu) -->
     <div class="nav-lang-dropdown" id="navLangDropdown">
@@ -1600,15 +1668,11 @@ footer .footer-social a:hover {
 <!-- HERO -->
 <header>
   <div class="hero-content">
-    <div class="hero-badge" data-pt="Jardim de Infância" data-en="Kindergarten">
-      <i class="fas fa-star" style="font-size:0.7rem;"></i>
-      Jardim de Infância 
-    </div>
     <div class="hero-info">
-      <span class="hero-chip" data-pt="Pré-Escolar: 3 aos 6 anos" data-en="Pre-school: Ages 3 to 6">Pré-Escolar: 3 aos 6 anos</span>
-      <span class="hero-chip" data-pt="Horário: 07h - 19h30" data-en="Hours: 7:00 AM - 7:30 PM">Horário: 07h - 19h30</span>
+      <span class="hero-chip" data-pt="Pré-Escolar: 3 aos 6 anos" data-en="Pre-school: Ages 3 to 6"><i class="fas fa-child"></i> Pré-Escolar: 3 aos 6 anos</span>
+      <span class="hero-chip" data-pt="Horário: 07h - 19h30" data-en="Hours: 7:00 AM - 7:30 PM"><i class="fas fa-clock"></i> Horário: 07h - 19h30</span>
     </div>
-    <h2 data-pt="Cada Criança no Centro de Tudo o Que Fazemos" data-en="Each Child at the Center of Everything We Do">Cada Criança no Centro de Tudo o Que Fazemos</h2>
+    <h1 data-pt="Cada Criança no Centro de Tudo o Que Fazemos" data-en="Each Child at the Center of Everything We Do">Cada Criança no Centro de Tudo o Que Fazemos</h1>
     <p data-pt="No Tagarelas à Solta, cada criança é acolhida com amor, segurança e alegria. Aqui cuidamos dela como se fosse da família, acompanhando cada momento especial do seu crescimento. Com uma equipa dedicada e um ambiente pensado até ao detalhe, garantimos que a criança floresce feliz e segura todos os dias." data-en="At Tagarelas à Solta, every child is welcomed with love, safety and joy. Here we care for them as if they were family, accompanying every special moment of their growth. With a dedicated team and an environment thoughtfully designed, we ensure every child thrives happy and secure every day.">
       No Tagarelas à Solta, cada criança é acolhida com amor, segurança e alegria.
       Aqui cuidamos dela como se fosse da família, acompanhando cada momento especial do seu crescimento.
@@ -1668,13 +1732,13 @@ footer .footer-social a:hover {
     <div class="about-visual">
       <div class="about-image-grid">
         <div class="img-wrapper">
-          <img src="img/gallery/10.jpg" alt="Tagarelas à Solta" loading="lazy">
+          <img src="img/gallery/10.jpg" alt="Crianças a brincar no jardim de infância Tagarelas à Solta" loading="lazy">
         </div>
         <div class="img-wrapper">
-          <img src="img/gallery/3.jpg" alt="Tagarelas à Solta" loading="lazy">
+          <img src="img/gallery/3.jpg" alt="Atividades educativas no Tagarelas à Solta" loading="lazy">
         </div>
         <div class="img-wrapper">
-          <img src="img/gallery/18.jpg" alt="Tagarelas à Solta" loading="lazy">
+          <img src="img/gallery/18.jpg" alt="Espaço exterior do jardim de infância Tagarelas à Solta" loading="lazy">
         </div>
       </div>
     </div>
@@ -1719,6 +1783,74 @@ footer .footer-social a:hover {
         Acompanhamo-la de perto, celebrando cada conquista e apoiando-a em cada etapa.
       </p>
     </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS SECTION -->
+<section id="testemunhos" class="reveal">
+  <div class="section-header">
+    <span class="section-label" data-pt="O Que Dizem de Nós" data-en="What They Say About Us">O Que Dizem de Nós</span>
+    <h2 class="section-title" data-pt="Testemunhos" data-en="Testimonials">Testemunhos</h2>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+      </div>
+      <p class="testimonial-text" data-pt="Espaço muito agradável e bem organizado, com uma excelente zona exterior com relva e piscinas no verão. Equipa muito humana e carinhosa. Sem dúvida uma ótima escolha para os nossos filhos." data-en="Very pleasant and well-organized space, with an excellent outdoor area with grass and pools in summer. Very humane and caring team. Without a doubt, a great choice for our children.">Espaço muito agradável e bem organizado, com uma excelente zona exterior com relva e piscinas no verão. Equipa muito humana e carinhosa. Sem dúvida uma ótima escolha para os nossos filhos.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">S</div>
+        <div>
+          <div class="testimonial-name">Susana Rocha</div>
+          <div class="testimonial-source"><i class="fab fa-google"></i> Google Review</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+      </div>
+      <p class="testimonial-text" data-pt="Mais do que uma escola, é uma casa. Equipa fantástica, de um profissionalismo e carinho sem igual. Escolheria sempre o Tagarelas à Solta." data-en="More than a school, it's a home. Fantastic team with unmatched professionalism and affection. I would always choose Tagarelas à Solta.">Mais do que uma escola, é uma casa. Equipa fantástica, de um profissionalismo e carinho sem igual. Escolheria sempre o Tagarelas à Solta.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">N</div>
+        <div>
+          <div class="testimonial-name">Natalia Navarro</div>
+          <div class="testimonial-source"><i class="fab fa-google"></i> Google Review</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+      </div>
+      <p class="testimonial-text" data-pt="meu filho anda nessa escola e gostamos muito, de um todo, é uma escola exemplar, desde a diretora a educadora, gostamos imenso." data-en="My son attends this school and we like it very much, overall, it is an exemplary school, from the director to the educator, we like it a lot.">meu filho anda nessa escola e gostamos muito, de um todo, é uma escola exemplar, desde a diretora a educadora, gostamos imenso.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">T</div>
+        <div>
+          <div class="testimonial-name">Thallita Brito</div>
+          <div class="testimonial-source"><i class="fab fa-google"></i> Google Review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="testimonials-cta">
+    <a href="https://share.google/seL7JEA5fDcYuhenW" target="_blank" data-pt="Ver mais no Google" data-en="See more on Google">Ver mais no Google <i class="fab fa-google"></i></a>
+  </div>
+</section>
+
+<!-- GALLERY SECTION -->
+<section id="galeria" class="reveal">
+  <div class="section-header">
+    <span class="section-label" data-pt="Os Nossos Momentos" data-en="Our Moments">Os Nossos Momentos</span>
+    <h2 class="section-title" data-pt="Galeria de Fotos" data-en="Photo Gallery">Galeria de Fotos</h2>
+  </div>
+
+  <div class="gallery-grid" id="galleryContainer">
+    <!-- Gallery items loaded dynamically -->
   </div>
 </section>
 
@@ -1787,74 +1919,6 @@ footer .footer-social a:hover {
   </div>
 </section>
 
-<!-- GALLERY SECTION -->
-<section id="galeria" class="reveal">
-  <div class="section-header">
-    <span class="section-label" data-pt="Os Nossos Momentos" data-en="Our Moments">Os Nossos Momentos</span>
-    <h2 class="section-title" data-pt="Galeria de Fotos" data-en="Photo Gallery">Galeria de Fotos</h2>
-  </div>
-
-  <div class="gallery-grid" id="galleryContainer">
-    <!-- Gallery items loaded dynamically -->
-  </div>
-</section>
-
-<!-- TESTIMONIALS SECTION -->
-<section id="testemunhos" class="reveal">
-  <div class="section-header">
-    <span class="section-label" data-pt="O Que Dizem de Nós" data-en="What They Say About Us">O Que Dizem de Nós</span>
-    <h2 class="section-title" data-pt="Testemunhos" data-en="Testimonials">Testemunhos</h2>
-  </div>
-
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <div class="testimonial-stars">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-      </div>
-      <p class="testimonial-text" data-pt="Espaço muito agradável e bem organizado, com uma excelente zona exterior com relva e piscinas no verão. Equipa muito humana e carinhosa. Sem dúvida uma ótima escolha para os nossos filhos." data-en="Very pleasant and well-organized space, with an excellent outdoor area with grass and pools in summer. Very humane and caring team. Without a doubt, a great choice for our children.">Espaço muito agradável e bem organizado, com uma excelente zona exterior com relva e piscinas no verão. Equipa muito humana e carinhosa. Sem dúvida uma ótima escolha para os nossos filhos.</p>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">S</div>
-        <div>
-          <div class="testimonial-name">Susana Rocha</div>
-          <div class="testimonial-source"><i class="fab fa-google"></i> Google Review</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="testimonial-card">
-      <div class="testimonial-stars">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-      </div>
-      <p class="testimonial-text" data-pt="Mais do que uma escola, é uma casa. Equipa fantástica, de um profissionalismo e carinho sem igual. Escolheria sempre o Tagarelas à Solta." data-en="More than a school, it's a home. Fantastic team with unmatched professionalism and affection. I would always choose Tagarelas à Solta.">Mais do que uma escola, é uma casa. Equipa fantástica, de um profissionalismo e carinho sem igual. Escolheria sempre o Tagarelas à Solta.</p>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">N</div>
-        <div>
-          <div class="testimonial-name">Natalia Navarro</div>
-          <div class="testimonial-source"><i class="fab fa-google"></i> Google Review</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="testimonial-card">
-      <div class="testimonial-stars">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-      </div>
-      <p class="testimonial-text" data-pt="meu filho anda nessa escola e gostamos muito, de um todo, é uma escola exemplar, desde a diretora a educadora, gostamos imenso." data-en="My son attends this school and we like it very much, overall, it is an exemplary school, from the director to the educator, we like it a lot.">meu filho anda nessa escola e gostamos muito, de um todo, é uma escola exemplar, desde a diretora a educadora, gostamos imenso.</p>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">T</div>
-        <div>
-          <div class="testimonial-name">Thallita Brito</div>
-          <div class="testimonial-source"><i class="fab fa-google"></i> Google Review</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="testimonials-cta">
-    <a href="https://share.google/seL7JEA5fDcYuhenW" target="_blank" data-pt="Ver mais no Google" data-en="See more on Google">Ver mais no Google <i class="fab fa-google"></i></a>
-  </div>
-</section>
-
 <!-- CTA SECTION -->
 <section class="cta reveal">
   <h2 data-pt="Pronto para nos conhecer?" data-en="Ready to meet us?">Pronto para nos conhecer?</h2>
@@ -1865,7 +1929,7 @@ footer .footer-social a:hover {
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">
-    <img src="img/gallery/logo.png" alt="Tagarelas à Solta">
+    <img src="img/gallery/logo.png" alt="Logotipo Tagarelas à Solta">
     <span>Tagarelas à Solta</span>
   </div>
   <div class="footer-social">
@@ -2208,7 +2272,7 @@ document.addEventListener('keydown', function(e) {
       if (chips[i]) setI18n(chips[i], chip.pt, chip.en);
     });
 
-    const heroTitle = document.querySelector('header h2');
+    const heroTitle = document.querySelector('header h1');
     if (heroTitle) setI18n(heroTitle, data.title.pt, data.title.en);
 
     const heroDesc = document.querySelector('header p');
@@ -2424,13 +2488,13 @@ document.addEventListener('keydown', function(e) {
         window.netlifyIdentity.on('login', () => {
           document.location.href = '/admin/';
         });
+        // Open the Identity modal when arriving via invite/confirmation email link
+        const hash = window.location.hash;
+        if (hash && (hash.includes('invite_token=') || hash.includes('confirmation_token=') || hash.includes('recovery_token='))) {
+          window.netlifyIdentity.open('signup');
+        }
       }
     });
-    // Open the Identity modal when arriving via invite/confirmation email link
-    const hash = window.location.hash;
-    if (hash && (hash.includes('invite_token=') || hash.includes('confirmation_token=') || hash.includes('recovery_token='))) {
-      window.netlifyIdentity.open();
-    }
   }
 </script>
 
