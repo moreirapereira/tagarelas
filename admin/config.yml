@@ -37,7 +37,7 @@ collections:
   # --- Hero Section ---
   - name: "hero"
     label: "🎯 Cabeçalho (Hero)"
-    icon: "star"
+    icon: "web_asset"
     description: "O banner principal que aparece no topo do site. Inclui título, descrição e botão de ação."
     files:
       - name: "hero"
@@ -128,7 +128,7 @@ collections:
   # --- Values Section ---
   - name: "values"
     label: "💎 Valores"
-    icon: "heart"
+    icon: "favorite"
     description: "Os valores fundamentais do jardim que aparecem como cartões no site."
     files:
       - name: "values"
@@ -171,7 +171,7 @@ collections:
   # --- CTA Section ---
   - name: "cta"
     label: "📣 Chamada à Ação (CTA)"
-    icon: "megaphone"
+    icon: "campaign"
     description: "A secção de destaque que convida os visitantes a entrar em contacto."
     files:
       - name: "cta"
@@ -241,7 +241,7 @@ collections:
   - name: "gallery"
     label: "🖼️ Galeria de Fotos"
     label_singular: "Foto"
-    icon: "image"
+    icon: "photo_library"
     folder: "content/gallery"
     create: true
     delete: true
@@ -261,7 +261,7 @@ collections:
   - name: "testimonials"
     label: "⭐ Testemunhos"
     label_singular: "Testemunho"
-    icon: "quote"
+    icon: "format_quote"
     folder: "content/testimonials"
     create: true
     delete: true
