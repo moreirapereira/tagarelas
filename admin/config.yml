@@ -1,7 +1,5 @@
-# When running locally, set local_backend to true and run:
-#   npx decap-server
-# For production (Netlify), set local_backend to false
-local_backend: true
+# For local development, set local_backend to true and run: npx decap-server
+local_backend: false
 
 backend:
   name: git-gateway

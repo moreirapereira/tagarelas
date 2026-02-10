@@ -12,14 +12,30 @@
     "en": "We know that entrusting a child to us is an important step. That's why we've created a home where warmth, fun and learning go hand in hand. Here every child has fun while discovering the world, always with the caring support of our team who respects each child's unique pace and celebrates every achievement."
   },
   "features": [
-    { "icon": "fas fa-heart", "pt": "Ambiente Acolhedor", "en": "Welcoming Environment" },
-    { "icon": "fas fa-shield-halved", "pt": "Segurança Total", "en": "Full Safety" },
-    { "icon": "fas fa-graduation-cap", "pt": "Equipa Qualificada", "en": "Qualified Team" },
-    { "icon": "fas fa-child-reaching", "pt": "Desenvolvimento Integral", "en": "Full Development" }
+    {
+      "icon": "fas fa-heart",
+      "pt": "Ambiente Acolhedor",
+      "en": "Welcoming Environment"
+    },
+    {
+      "icon": "fas fa-shield-halved",
+      "pt": "Segurança Total",
+      "en": "Full Safety"
+    },
+    {
+      "icon": "fas fa-graduation-cap",
+      "pt": "Equipa Qualificada",
+      "en": "Qualified Team"
+    },
+    {
+      "icon": "fas fa-child-reaching",
+      "pt": "Desenvolvimento Integral",
+      "en": "Full Development"
+    }
   ],
   "images": [
     "/img/gallery/10.jpg",
     "/img/gallery/3.jpg",
-    "/img/gallery/18.jpg"
+    "/img/gallery/19.jpg"
   ]
 }
