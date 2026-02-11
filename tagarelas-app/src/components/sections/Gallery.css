@@ -1,0 +1,109 @@
+/* ===== GALLERY (Swiper Carousel) ===== */
+#galeria {
+  max-width: 1300px;
+  overflow: visible;
+}
+
+/* Swiper container */
+.gallery-swiper {
+  padding-bottom: 50px !important; /* room for pagination bullets */
+  overflow: visible;
+}
+
+/* Each slide card */
+.gallery-slide {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.gallery-slide:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-slide:hover img {
+  transform: scale(1.08);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(26, 60, 57, 0.85) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.gallery-slide:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-overlay p {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Swiper navigation arrows */
+.gallery-swiper .swiper-button-next,
+.gallery-swiper .swiper-button-prev {
+  color: var(--primary);
+  background: rgba(255, 255, 255, 0.9);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.gallery-swiper .swiper-button-next:hover,
+.gallery-swiper .swiper-button-prev:hover {
+  background: var(--accent);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.gallery-swiper .swiper-button-next::after,
+.gallery-swiper .swiper-button-prev::after {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* Swiper pagination bullets */
+.gallery-swiper .swiper-pagination-bullet {
+  background: var(--primary);
+  opacity: 0.3;
+  transition: var(--transition-fast);
+}
+
+.gallery-swiper .swiper-pagination-bullet-active {
+  background: var(--accent);
+  opacity: 1;
+}
+
+/* Mobile: hide arrows, rely on swipe + bullets */
+@media (max-width: 768px) {
+  .gallery-swiper .swiper-button-next,
+  .gallery-swiper .swiper-button-prev {
+    display: none;
+  }
+
+  .gallery-slide {
+    aspect-ratio: 3 / 2;
+  }
+}

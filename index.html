@@ -176,6 +176,9 @@ nav h1 {
 
 nav img.logo {
   height: var(--logo-height);
+  width: auto;
+  object-fit: contain;
+  transition: var(--transition);
 }
 
 /* Header text replacing the old image */
@@ -218,9 +221,6 @@ nav img.logo {
   .map-wrapper iframe {
     min-height: 160px !important;
   }
-}
-  object-fit: contain;
-  transition: var(--transition);
 }
 
 nav.scrolled img.logo {
@@ -655,7 +655,6 @@ section:hover::before {
 
 .section-title {
   order: 1;
-}
   font-family: 'Poppins', sans-serif;
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   color: var(--primary);

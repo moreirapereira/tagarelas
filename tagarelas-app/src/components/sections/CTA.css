@@ -1,0 +1,108 @@
+/* ===== CTA ===== */
+section.cta {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--primary) 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  color: white;
+  text-align: center;
+  padding: 100px 40px;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+section.cta::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 168, 67, 0.12) 0%, transparent 70%);
+  top: -200px;
+  right: -200px;
+  animation: floatSlow 10s ease-in-out infinite;
+}
+
+section.cta::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 168, 67, 0.08) 0%, transparent 70%);
+  bottom: -100px;
+  left: -100px;
+  animation: floatSlow 7s ease-in-out infinite reverse;
+}
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -30px) scale(1.05);
+  }
+}
+
+section.cta h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+section.cta p {
+  position: relative;
+  z-index: 2;
+  opacity: 0.85;
+  max-width: 550px;
+  margin: 0 auto 36px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+section.cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 50px;
+  transition: var(--transition);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 6px 25px rgba(212, 168, 67, 0.35);
+}
+
+section.cta a:hover {
+  background: var(--accent-light);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 35px rgba(212, 168, 67, 0.5);
+}
+
+@media (max-width: 768px) {
+  section.cta {
+    padding: 60px 28px;
+  }
+}

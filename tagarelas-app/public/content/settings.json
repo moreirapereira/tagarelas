@@ -1,0 +1,14 @@
+{
+  "address": "Alameda de Aristides Sousa Mendes n.º 8 Loja R/C Drtº, 2625-045 Póvoa de Santa Iria",
+  "phone": "910 588 380",
+  "email": "tagarelasasolta@sapo.pt",
+  "hours": {
+    "pt": "07h - 19h30",
+    "en": "07:00 - 19:30"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/p/Tagarelas-%C3%A0-Solta-100089645323231/",
+    "instagram": "https://www.instagram.com/tagarelas_a_solta/"
+  },
+  "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12428.262499223873!2d-9.068167599999999!3d38.8538548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd192f326846c1fb%3A0xb69f805c183c2976!2sTAGARELASASOLTA!5e0!3m2!1sen!2spt!4v1770650129599!5m2!1sen!2spt"
+}

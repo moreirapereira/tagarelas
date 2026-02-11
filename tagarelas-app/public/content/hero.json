@@ -1,0 +1,33 @@
+{
+  "badge": {
+    "pt": "Jardim de Infância",
+    "en": "Kindergarten"
+  },
+  "chips": [
+    {
+      "pt": "Pré-Escolar: 3 aos 6 anos",
+      "en": "Pre-school: Ages 3 to 6"
+    },
+    {
+      "pt": "Horário: 07h - 19h30",
+      "en": "Hours: 7:00 AM - 7:30 PM"
+    },
+    {
+      "pt": "Creche Brevemente",
+      "en": "Kindergarden soon"
+    }
+  ],
+  "title": {
+    "pt": "Cada Criança no Centro de Tudo o Que Fazemos",
+    "en": "Each Child at the Center of Everything We Do"
+  },
+  "description": {
+    "pt": "No Tagarelas à Solta, cada criança é acolhida com amor, segurança e alegria. Aqui cuidamos dela como se fosse da família, acompanhando cada momento especial do seu crescimento. Com uma equipa dedicada e um ambiente pensado até ao detalhe, garantimos que a criança floresce feliz e segura todos os dias.",
+    "en": "At Tagarelas à Solta, every child is welcomed with love, safety and joy. Here we care for them as if they were family, accompanying every special moment of their growth. With a dedicated team and an environment thoughtfully designed, we ensure every child thrives happy and secure every day."
+  },
+  "cta": {
+    "pt": "Marcar Visita",
+    "en": "Schedule Visit",
+    "href": "#contactos"
+  }
+}

@@ -1,0 +1,15 @@
+# Build outputs
+dist/
+.vite/
+
+# Dependencies
+node_modules/
+tagarelas-app/node_modules/
+
+# Dev tools
+serve-original.js
+package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db

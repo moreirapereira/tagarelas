@@ -1,0 +1,41 @@
+{
+  "label": {
+    "pt": "Quem Somos",
+    "en": "Who We Are"
+  },
+  "title": {
+    "pt": "Sobre o Jardim de Infância",
+    "en": "About Us"
+  },
+  "text": {
+    "pt": "Sabemos que confiar-nos uma criança é um passo importante. Por isso, criámos um lar onde o acolhimento, a diversão e a aprendizagem andam lado a lado. Aqui cada criança diverte-se enquanto descobre o mundo, sempre com o apoio atento da nossa equipa que respeita o ritmo único de cada uma e celebra cada conquista.",
+    "en": "We know that entrusting a child to us is an important step. That's why we've created a home where warmth, fun and learning go hand in hand. Here every child has fun while discovering the world, always with the caring support of our team who respects each child's unique pace and celebrates every achievement."
+  },
+  "features": [
+    {
+      "icon": "fas fa-heart",
+      "pt": "Ambiente Acolhedor",
+      "en": "Welcoming Environment"
+    },
+    {
+      "icon": "fas fa-shield-halved",
+      "pt": "Segurança Total",
+      "en": "Full Safety"
+    },
+    {
+      "icon": "fas fa-graduation-cap",
+      "pt": "Equipa Qualificada",
+      "en": "Qualified Team"
+    },
+    {
+      "icon": "fas fa-child-reaching",
+      "pt": "Desenvolvimento Integral",
+      "en": "Full Development"
+    }
+  ],
+  "images": [
+    "/img/gallery/10.jpg",
+    "/img/gallery/3.jpg",
+    "/img/gallery/19.jpg"
+  ]
+}

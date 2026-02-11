@@ -1,0 +1,15 @@
+{
+  "title": {
+    "pt": "Pronto para nos conhecer?",
+    "en": "Ready to meet us?"
+  },
+  "description": {
+    "pt": "Marque uma visita e conheça pessoalmente o nosso espaço e a nossa equipa dedicada.",
+    "en": "Schedule a visit and personally meet our dedicated space and team."
+  },
+  "button": {
+    "pt": "Contacte-nos",
+    "en": "Contact Us",
+    "href": "#contactos"
+  }
+}
